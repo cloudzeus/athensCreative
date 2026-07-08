@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* ——— Athens Creative "Atelier" palette ——— */
+:root {
+  --paper: #faf3e7;
+  --paper-deep: #f2e7d3;
+  --ink: #211d19;
+  --vermilion: #e8503a;
+  --cobalt: #2b50c8;
+  --sunflower: #f5b933;
+  --sunflower-deep: #b57f0a;
+  --leaf: #3e8e5a;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-vermilion: var(--vermilion);
+  --color-cobalt: var(--cobalt);
+  --color-sunflower: var(--sunflower);
+  --color-sunflower-deep: var(--sunflower-deep);
+  --color-leaf: var(--leaf);
+
+  --font-sans: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-hand: var(--font-gochi), cursive;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--sunflower);
+  color: var(--ink);
+}
+
+/* Paper grain over everything, very quiet */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Program {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  tagline   String
+  body      String   @db.Text
+  accent    String   @default("vermilion") // vermilion | cobalt | sunflower | leaf
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model ScheduleSlot {
+  id     Int    @id @default(autoincrement())
+  day    String // e.g. "Wednesday"
+  opens  String // "10:00"
+  closes String // "18:00"
+  note   String @default("")
+  order  Int    @default(0)
+}
+
+model Lesson {
+  id    Int    @id @default(autoincrement())
+  day   String // Wednesday | Thursday | Friday | Saturday | Online
+  start String // "10:00"
+  end   String // "11:30"
+  title String
+  kind  String // art | music | play | speak
+  ages  String // e.g. "4–6", "all ages"
+  spots Int    @default(4) // seats left this term
+  order Int    @default(0)
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+}
