@@ -42,6 +42,35 @@ error). With Postgres up, programs, schedule and lessons are served from the
 DB (revalidated hourly) and contact-form submissions are stored in
 `ContactMessage`.
 
+## Admin panel
+
+`/admin` — manage the lesson timetable, programs, studio hours and read
+contact messages. Log in with the seeded admin user (`prisma db seed` creates
+it; see `prisma/seed.ts`). Sessions are HMAC-signed httpOnly cookies
+(`AUTH_SECRET` in `.env`), passwords are bcrypt-hashed, and `/admin` is
+excluded from robots and the sitemap.
+
+## Email (Mailgun)
+
+`src/lib/mailgun.ts` sends via the Mailgun HTTP API (EU region). The contact
+form stores the message in Postgres, then notifies `MAIL_TO_ADMIN` and sends
+the visitor a styled auto-reply. Emails are best-effort — a Mailgun outage
+never breaks the form.
+
+⚠️ Sending stays disabled by Mailgun until the domain's DNS records (SPF +
+two DKIM CNAMEs + tracking CNAME) are added — fetch them from the Mailgun
+control panel or `GET /v4/domains/athens-creative.com`.
+
+## SEO / GEO
+
+- Rich metadata in `layout.tsx`: geo tags (Gkyzi coordinates), keywords
+  (EN + EL), OpenGraph/Twitter cards, canonical, robots directives
+- JSON-LD `@graph` in `page.tsx`: EducationalOrganization + LocalBusiness
+  with NAP, GeoCoordinates, live opening hours from the DB, courses catalog,
+  founder (Despina), sameAs social links
+- `sitemap.ts`, `robots.ts` (admin disallowed), `icon.svg`, generated
+  `opengraph-image` (1200×630)
+
 ## Architecture
 
 ```

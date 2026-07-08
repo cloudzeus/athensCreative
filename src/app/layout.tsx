@@ -27,15 +27,61 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://athens-creative.com"),
-  title: "Athens Creative English — English, taught like an art",
+  title: {
+    default: "Athens Creative English — English lessons for kids through art, music & play in Athens",
+    template: "%s — Athens Creative English",
+  },
   description:
-    "An English studio in Gkyzi, Athens, where children learn English through art, music and play. Private & semi-private seminars, field trips, events and online lessons — for students of all ages.",
+    "English lessons for children in Gkyzi, Athens — taught through art, music, theatre and play instead of textbooks. Private & semi-private seminars, field trips, events and online lessons. Free trial lesson.",
+  keywords: [
+    "English lessons for children Athens",
+    "English tutor Athens",
+    "creative English lessons",
+    "μαθήματα αγγλικών για παιδιά Αθήνα",
+    "ιδιαίτερα αγγλικά Γκύζη",
+    "αγγλικά μέσω τέχνης",
+    "English through art and play",
+    "kids English classes Gkyzi",
+    "ESL children Athens",
+    "English school Gkyzi Athens",
+  ],
+  authors: [{ name: "Athens Creative English", url: "https://athens-creative.com" }],
+  creator: "Athens Creative English",
+  publisher: "Athens Creative English",
+  category: "education",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Athens Creative English",
+    title: "Athens Creative English — English, taught like an art",
     description:
-      "Children paint, sing, build and perform their way into English — no textbooks, no drills.",
+      "Children paint, sing, build and perform their way into English — no textbooks, no drills. An English studio in Gkyzi, Athens. Free trial lesson.",
+    url: "https://athens-creative.com",
+    siteName: "Athens Creative English",
     locale: "en_GR",
+    alternateLocale: "el_GR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Athens Creative English — English, taught like an art",
+    description:
+      "Children paint, sing, build and perform their way into English. An English studio in Gkyzi, Athens.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  other: {
+    "geo.region": "GR-I",
+    "geo.placename": "Gkyzi, Athens, Greece",
+    "geo.position": "37.9946;23.7492",
+    ICBM: "37.9946, 23.7492",
   },
 };
 

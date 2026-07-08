@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { contactAutoReplyEmail, contactNotificationEmail, sendMail } from "@/lib/mailgun";
 
 export type ContactState = {
   status: "idle" | "success" | "error";
@@ -30,15 +31,24 @@ export async function sendContactMessage(
     return { status: "error", message: "Tell us a little more — a sentence or two helps." };
   }
 
+  let stored = false;
   try {
     await prisma.contactMessage.create({ data: { name, email, message } });
-    return { status: "success", message: "Ευχαριστούμε! We'll be in touch soon." };
+    stored = true;
   } catch {
-    console.warn("[contact] MySQL unreachable — message not stored");
-    return {
-      status: "error",
-      message:
-        "We couldn't save your message just now — please email us directly at info@athens-creative.com.",
-    };
+    console.warn("[contact] Postgres unreachable — message not stored");
   }
+
+  // Best-effort emails via Mailgun; the DB row is the source of truth.
+  const notified = await sendMail(contactNotificationEmail(name, email, message));
+  if (notified) void sendMail(contactAutoReplyEmail(name, email));
+
+  if (stored || notified) {
+    return { status: "success", message: "Ευχαριστούμε! We'll be in touch soon." };
+  }
+  return {
+    status: "error",
+    message:
+      "We couldn't send your message just now — please email us directly at info@athens-creative.com.",
+  };
 }

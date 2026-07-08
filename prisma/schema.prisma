@@ -39,6 +39,15 @@ model Lesson {
   order Int    @default(0)
 }
 
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+}
+
 model ContactMessage {
   id        Int      @id @default(autoincrement())
   name      String
