@@ -153,7 +153,7 @@ export default function Schedule({
               </button>
             </div>
           ) : (
-            <ul className="grid gap-5 md:grid-cols-2">
+            <ul className="grid gap-5 lg:grid-cols-2">
               {current.map((lesson) => {
                 const meta = KIND_META[lesson.kind];
                 const lastSpot = lesson.spots <= 1;
@@ -162,7 +162,7 @@ export default function Schedule({
                     key={`${lesson.day}-${lesson.start}-${lesson.title}`}
                     className={`lesson-card group relative flex flex-col gap-4 rounded-3xl border-l-[10px] bg-paper p-6 text-ink shadow-[5px_5px_0_0_rgba(250,243,231,0.18)] sm:flex-row sm:items-center sm:gap-6 sm:p-7 ${meta.border}`}
                   >
-                    <div className="flex shrink-0 items-center gap-4 sm:w-40 sm:flex-col sm:items-start sm:gap-1">
+                    <div className="flex shrink-0 items-center gap-4 sm:w-24 sm:flex-col sm:items-start sm:gap-1">
                       <span className="font-mono text-lg font-medium leading-none sm:text-xl">
                         {lesson.start}
                       </span>
